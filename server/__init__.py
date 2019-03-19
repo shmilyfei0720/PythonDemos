@@ -4,6 +4,7 @@ from flask import redirect
 from flask import request
 import wx_server
 import wx_postreceive
+import td_server
 
 app = Flask(__name__)
 
@@ -40,6 +41,12 @@ def testAlarm():
 @app.route('/click')
 def click():
     return '<h1>Hello World!</h1>'
+
+@app.route('/userlogin',methods=['GET'])
+def userlogin():
+    name = request.args.get('name')
+    pwd = request.args.get('pwd')
+    return td_server.td_userlogin(name,pwd)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0',port=80)
